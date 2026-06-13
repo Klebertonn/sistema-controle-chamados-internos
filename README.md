@@ -5,10 +5,14 @@
 ## Tecnologias
 ### Backend
 -GO
-### Frontend
+### Frontend/ Web
 -HTML
 
 -CSS
+
+-JS
+
+-Bootstrap5
 
 ## Funcionalidades
 -Login
@@ -26,8 +30,16 @@
 
 ## Arquitetura
 
-## Estrutura
 
+## Estrutura
+```text
+cmd
+ |__server
+      |__main
+
+internal
+   |__hadlers     
+    
 ## Endpoints
 
 ## Regras
