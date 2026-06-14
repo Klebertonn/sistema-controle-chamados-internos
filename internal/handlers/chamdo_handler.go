@@ -13,7 +13,7 @@ type ChamadoHendler struct {
 	service *service.ChamadoService
 }
 
-func newChamado(service *service.ChamadoService) *ChamadoHendler {
+func NewChamadoHandler(service *service.ChamadoService) *ChamadoHendler {
 	return &ChamadoHendler{
 		service: service,
 	}
@@ -23,7 +23,7 @@ func newChamado(service *service.ChamadoService) *ChamadoHendler {
 func (h ChamadoHendler) CriarChamados(c gin.Context) {
 	var chamado models.Chamado
 
-	if err := c.BindJSON(&chamado); err != nil {
+	if err := c.ShouldBindJSON(&chamado); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "dados inválidos",
 		})
@@ -36,12 +36,14 @@ func (h ChamadoHendler) CriarChamados(c gin.Context) {
 		})
 		return
 	}
+
 	c.JSON(http.StatusAccepted, gin.H{
 		"message": "Chamado criado com sucesso",
 	})
 }
 
 func (h ChamadoHendler) ListarChamados(c gin.Context) {
+
 	chamados, err := h.service.ListarChamados()
 
 	if err != nil {
@@ -56,9 +58,10 @@ func (h ChamadoHendler) ListarChamados(c gin.Context) {
 }
 
 func (h ChamadoHendler) BuscarOrdemID(c gin.Context) {
-	ordemId := c.Param("ordemId")
 
-	ordem, err := strconv.Atooi(ordemId)
+	ordemID, err := strconv.Atoi(
+		c.Param("ordemID"),
+	)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -67,7 +70,7 @@ func (h ChamadoHendler) BuscarOrdemID(c gin.Context) {
 		return
 	}
 
-	chamado, err := h.service.BuscarOrdemID(ordemId)
+	chamado, err := h.service.BuscarOrdemID(ordemID)
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{
@@ -81,11 +84,39 @@ func (h ChamadoHendler) BuscarOrdemID(c gin.Context) {
 }
 
 func (h ChamadoHendler) AtualizarChamado(c *gin.Context) {
-	ordemId := c.Param("ordemId")
+
+	ordemID, err := strconv.Atoi(
+		c.Param("ordemID"),
+	)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "Numero de ordem inválida",
+		})
+		return
+	}
+
+	var chamado models.Chamado
+
+	if err := c.ShouldBindJSON(&chamado); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "dados inválidos",
+		})
+		return
+	}
+
+	chamado.OrdemID = ordemID
+
+  
+	if err := h.service.AtualizarChamado(chamado); err !=nil{
+		c.JSON(http.StatusBadRequest, gin.H{
+			"erorr": err.Error(),
+		})
+		return
+	}
 
 	c.JSON(http.StatusOK, gin.H{
-		"ordemId": ordemId,
-		"message": "Chamado atualizado",
+		"message": "chamado atualizaod com sucesso",
 	})
 
 }
