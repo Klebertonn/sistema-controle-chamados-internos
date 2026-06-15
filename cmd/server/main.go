@@ -41,9 +41,9 @@ func main() {
 
 	r.GET("/chamados", chamadohandler.ListarChamados)
 
-	r.GET("/chamados/:ordemId", chamadohandler.BuscarOrdemID)
+	r.GET("/chamados/:id", chamadohandler.BuscarOrdemID)
 
-	r.PUT("/chamados/:ordemId", chamadohandler.AtualizarChamado)
+	r.PUT("/chamados/:id", chamadohandler.AtualizarChamado)
 
 	log.Println("Servidor Iniciado na porta 8080")
 

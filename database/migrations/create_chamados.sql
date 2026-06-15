@@ -8,7 +8,6 @@ CREATE TABLE Chamados(
 	Solicitante   VARCHAR(200),
 	ResponsavelID int    ,
 	DataAbertura          DATETIME NOT NULL,
-	DescCancelado VARCHAR(MAX),
 
 
     CONSTRAINT FK_chamados_Responsaveis

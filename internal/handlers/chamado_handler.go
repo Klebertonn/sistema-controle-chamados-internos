@@ -20,7 +20,8 @@ func NewChamadoHandler(service *service.ChamadoService) *ChamadoHendler {
 
 }
 
-func (h ChamadoHendler) CriarChamados(c *gin.Context) {
+func (h *ChamadoHendler) CriarChamados(c *gin.Context) {
+
 	var chamado models.Chamado
 
 	if err := c.ShouldBindJSON(&chamado); err != nil {
@@ -42,10 +43,9 @@ func (h ChamadoHendler) CriarChamados(c *gin.Context) {
 	})
 }
 
-func (h ChamadoHendler) ListarChamados(c *gin.Context) {
+func (h *ChamadoHendler) ListarChamados(c *gin.Context) {
 
 	chamados, err := h.service.ListarChamados()
-
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"error": err.Error(),
@@ -57,12 +57,9 @@ func (h ChamadoHendler) ListarChamados(c *gin.Context) {
 
 }
 
-func (h ChamadoHendler) BuscarOrdemID(c *gin.Context) {
+func (h *ChamadoHendler) BuscarOrdemID(c *gin.Context) {
 
-	ordemID, err := strconv.Atoi(
-		c.Param("ordemID"),
-	)
-
+	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Numero de ordem inválida",
@@ -70,8 +67,7 @@ func (h ChamadoHendler) BuscarOrdemID(c *gin.Context) {
 		return
 	}
 
-	chamado, err := h.service.BuscarOrdemID(ordemID)
-
+	chamado, err := h.service.BuscarOrdemID(id)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"error": "chamado não econtrado",
@@ -83,10 +79,10 @@ func (h ChamadoHendler) BuscarOrdemID(c *gin.Context) {
 
 }
 
-func (h ChamadoHendler) AtualizarChamado(c *gin.Context) {
+func (h *ChamadoHendler) AtualizarChamado(c *gin.Context) {
 
-	ordemID, err := strconv.Atoi(
-		c.Param("ordemID"),
+	id, err := strconv.Atoi(
+		c.Param("id"),
 	)
 
 	if err != nil {
@@ -105,11 +101,11 @@ func (h ChamadoHendler) AtualizarChamado(c *gin.Context) {
 		return
 	}
 
-	chamado.OrdemID = ordemID
+	chamado.OrdemID = id
 
 	if err := h.service.AtualizarChamado(chamado); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"erorr": err.Error(),
+			"error": err.Error(),
 		})
 		return
 	}

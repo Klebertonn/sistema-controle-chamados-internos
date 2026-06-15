@@ -66,8 +66,7 @@ func (r *ChamadoSQLRepository) Listar() ([]models.Chamado, error) {
 	       Prioridade,
 	       Solicitante,
 	       ResponsavelID,   
-	       DataAbertura,
-	       DescCancelado
+	       DataAbertura
         FROM Chamados
 	`
 
@@ -88,9 +87,9 @@ func (r *ChamadoSQLRepository) Listar() ([]models.Chamado, error) {
 			&c.Descricao,
 			&c.Status,
 			&c.Prioridade,
+			&c.Solicitante,
 			&c.ResponsavelID,
 			&c.DataAbertura,
-			&c.DescCancelado,
 		)
 
 		if err != nil {
@@ -102,7 +101,6 @@ func (r *ChamadoSQLRepository) Listar() ([]models.Chamado, error) {
 
 	return chamados, nil
 }
-
 
 func (r *ChamadoSQLRepository) BuscarOrdemID(ordemID int) (*models.Chamado, error) {
 
@@ -128,6 +126,7 @@ func (r *ChamadoSQLRepository) BuscarOrdemID(ordemID int) (*models.Chamado, erro
 		&c.Descricao,
 		&c.Status,
 		&c.Prioridade,
+		&c.Solicitante,
 		&c.ResponsavelID,
 		&c.DataAbertura,
 	)
@@ -149,8 +148,8 @@ func (r *ChamadoSQLRepository) Atualizar(chamado models.Chamado) error {
 		  Descricao = @Descricao,
 		  Status = @Status,
 		  Prioridade = @Prioridade,
-		  ResponsavelID = @ResponsavelID,
-	  WHERE OrdemID = @Ordem	  	
+		  ResponsavelID = @ResponsavelID
+	  WHERE OrdemID = @OrdemID	  	
 	`
 
 	_, err := r.db.Exec(

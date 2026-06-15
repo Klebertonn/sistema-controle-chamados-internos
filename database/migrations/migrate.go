@@ -42,7 +42,6 @@ END
 	Solicitante   VARCHAR(200) NOT NULL,
 	ResponsavelID int          NULL,   
 	DataAbertura          DATETIME     NOT NULL,
-	DescCancelado VARCHAR(MAX) NULL,
 
 
     CONSTRAINT FK_chamados_Responsaveis

@@ -65,7 +65,7 @@ func (s ChamadoService) AtualizarChamado(chamado models.Chamado) error {
 		return err
 	}
 
-	if chamado.Status == models.StatusCancelado && chamado.DescCancelado == "" {
+	if chamado.Status == models.StatusCancelado  {
 		return errors.New("Descrição do cancelamento é obrigatório ")
 	}
 
