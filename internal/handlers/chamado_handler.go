@@ -32,7 +32,7 @@ func (h ChamadoHendler) CriarChamados(c gin.Context) {
 
 	if err := h.service.CriarChamados(chamado); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.error(),
+			"error": err.Error(),
 		})
 		return
 	}
@@ -107,8 +107,7 @@ func (h ChamadoHendler) AtualizarChamado(c *gin.Context) {
 
 	chamado.OrdemID = ordemID
 
-  
-	if err := h.service.AtualizarChamado(chamado); err !=nil{
+	if err := h.service.AtualizarChamado(chamado); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erorr": err.Error(),
 		})

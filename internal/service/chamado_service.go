@@ -8,7 +8,8 @@ import (
 )
 
 type ChamadoService struct {
-	chamadoRepo repositories.ChamadoRepository
+	chamadoRepo     repositories.ChamadoRepository
+	responsavelRepo repositories.ResponvaelRepository
 }
 
 func newChamado(chamadoRepo repositories.ChamadoRepository) *ChamadoService {
@@ -43,6 +44,11 @@ func (s ChamadoService) CriarChamados(chamado models.Chamado) error {
 
 	return s.chamadoRepo.Criar(chamado)
 
+}
+
+func (s ChamadoService) BuscarOrdemID(ordemID int) (*models.Chamado, error) {
+
+	return s.chamadoRepo.BuscarOrdemID(ordemID)
 }
 
 func (s ChamadoService) ListarChamados() ([]models.Chamado, error) {
