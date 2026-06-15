@@ -34,19 +34,19 @@ END
 	)
 	BEGIN
 	  CREATE TABLE Chamados(
-    OrdemID       INT IDENTITY(4,4) PRIMARY KEY,
+    OrdemID       INT IDENTITY(1,1) PRIMARY KEY,
 	Titulo        VARCHAR(200) NOT NULL,
 	Descricao     VARCHAR(MAX) NOT NULL,
 	Status        VARCHAR(50)  NOT NULL,
 	Prioridade    VARCHAR(50)  NOT NULL,
 	Solicitante   VARCHAR(200) NOT NULL,
-	ResponsavelID int          NULL   
-	Data          DATETIME     NOT NULL
+	ResponsavelID int          NULL,   
+	DataAbertura          DATETIME     NOT NULL,
 	DescCancelado VARCHAR(MAX) NULL,
 
 
-    CONSTRANT FK_chamados_Responsaveis
-    FORIGN KEY (ResponsavelID)
+    CONSTRAINT FK_chamados_Responsaveis
+    FOREIGN KEY (ResponsavelID)
     REFERENCES Responsaveis(ID)
 )
 END

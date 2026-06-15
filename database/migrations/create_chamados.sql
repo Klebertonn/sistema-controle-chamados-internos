@@ -1,13 +1,13 @@
 
 CREATE TABLE Chamados(
-    OrdemID       INT IDENTITY(4,4) PRIMARY KEY,
+    OrdemID       INT IDENTITY(1,1) PRIMARY KEY,
 	Titulo        VARCHAR(200),
 	Descricao     VARCHAR(MAX),
 	Status        VARCHAR(50),
 	Prioridade    VARCHAR(50),
 	Solicitante   VARCHAR(200),
 	ResponsavelID int    ,
-	Data          DATETIME NOT NULL
+	DataAbertura          DATETIME NOT NULL,
 	DescCancelado VARCHAR(MAX),
 
 

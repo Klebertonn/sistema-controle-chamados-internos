@@ -10,6 +10,6 @@ type Chamado struct {
 	Prioridade    string `json:"prioridade"`
 	Solicitante   string `json:"solicitante"`
 	ResponsavelID int    `json:"responsavelId"`
-	Data          time.Time
+	DataAbertura  time.Time
 	DescCancelado string `json:"descCancelado"`
 }

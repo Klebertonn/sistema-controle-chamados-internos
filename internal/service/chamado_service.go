@@ -30,7 +30,7 @@ func (s ChamadoService) CriarChamados(chamado models.Chamado) error {
 	}
 
 	chamado.Status = models.StatusAberto
-	chamado.Data = time.Now()
+	chamado.DataAbertura = time.Now()
 
 	if chamado.ResponsavelID == 0 {
 		responsavel, err := s.responsavelRepo.BuscarResp()
@@ -73,7 +73,7 @@ func (s ChamadoService) AtualizarChamado(chamado models.Chamado) error {
 		chamado.Status = models.StatusaAndamento
 	}
 
-	chamado.Data = existe.Data
+	chamado.DataAbertura = existe.DataAbertura
 
 	return s.chamadoRepo.Atualizar(chamado)
 }

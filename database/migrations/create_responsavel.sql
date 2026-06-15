@@ -3,7 +3,7 @@ CREATE TABLE Responsaveis(
     Nome VARCHAR(100) NOT NULL
 )
 
-iNSERT INTO Responsaveis(Nomes)
+INSERT INTO Responsaveis(Nomes)
 VALUES
 ("Lucas"),
 ("Pedro"),
