@@ -5,7 +5,7 @@ import (
 	"sistemas-controle-chamdos-internos/internal/models"
 )
 
-type MockChamadoRespository struct{
+type MockChamadoRespository struct {
 	RetornarError bool
 }
 
@@ -21,15 +21,20 @@ func (m *MockChamadoRespository) Listar() ([]models.Chamado, error) {
 
 	return []models.Chamado{
 		{
-			OrdemID: 1,
-			Titulo:  "Test",
+			OrdemID:       1,
+			Titulo:        "Test",
+			Descricao:     "Test service",
+			Status:        "Aberto",
+			Prioridade:    "Alta",
+			Solicitante:   "Analista",
+			ResponsavelID: 1,
 		},
 	}, nil
 }
 
 func (m *MockChamadoRespository) BuscarOrdemID(ordemID int) (*models.Chamado, error) {
 
-	if m.RetornarError{
+	if m.RetornarError {
 		return nil, errors.New("Chamado não encontrado")
 	}
 
