@@ -1,3 +1,4 @@
+
 CREATE TABLE Chamados(
     OrdemID       INT IDENTITY(4,4) PRIMARY KEY,
 	Titulo        VARCHAR(200),
@@ -5,13 +6,13 @@ CREATE TABLE Chamados(
 	Status        VARCHAR(50),
 	Prioridade    VARCHAR(50),
 	Solicitante   VARCHAR(200),
-	ResponsavelID int    
-	Data          time.Time
+	ResponsavelID int    ,
+	Data          DATETIME NOT NULL
 	DescCancelado VARCHAR(MAX),
 
 
-    CONSTRANT FK_chamados_Responsaveis
-    FORIGN KEY (ResponsavelID)
+    CONSTRAINT FK_chamados_Responsaveis
+    FOREIGN KEY (ResponsavelID)
     REFERENCES Responsaveis(ID)
 );
 

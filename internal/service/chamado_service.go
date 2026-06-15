@@ -12,7 +12,7 @@ type ChamadoService struct {
 	responsavelRepo repositories.ResponvaelRepository
 }
 
-func newChamado(chamadoRepo repositories.ChamadoRepository) *ChamadoService {
+func NewChamadoService(chamadoRepo repositories.ChamadoRepository) *ChamadoService {
 	return &ChamadoService{
 		chamadoRepo: chamadoRepo,
 	}

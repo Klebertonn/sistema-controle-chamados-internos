@@ -20,7 +20,7 @@ func NewChamadoHandler(service *service.ChamadoService) *ChamadoHendler {
 
 }
 
-func (h ChamadoHendler) CriarChamados(c gin.Context) {
+func (h ChamadoHendler) CriarChamados(c *gin.Context) {
 	var chamado models.Chamado
 
 	if err := c.ShouldBindJSON(&chamado); err != nil {
@@ -42,7 +42,7 @@ func (h ChamadoHendler) CriarChamados(c gin.Context) {
 	})
 }
 
-func (h ChamadoHendler) ListarChamados(c gin.Context) {
+func (h ChamadoHendler) ListarChamados(c *gin.Context) {
 
 	chamados, err := h.service.ListarChamados()
 
@@ -57,7 +57,7 @@ func (h ChamadoHendler) ListarChamados(c gin.Context) {
 
 }
 
-func (h ChamadoHendler) BuscarOrdemID(c gin.Context) {
+func (h ChamadoHendler) BuscarOrdemID(c *gin.Context) {
 
 	ordemID, err := strconv.Atoi(
 		c.Param("ordemID"),
