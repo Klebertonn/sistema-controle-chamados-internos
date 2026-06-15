@@ -12,7 +12,7 @@ type ChamadoService struct {
 	responsavelRepo repositories.ResponvaelRepository
 }
 
-func newChamado(chamadoRepo repositories.ChamadoRepository) *ChamadoService {
+func NewChamadoService(chamadoRepo repositories.ChamadoRepository) *ChamadoService {
 	return &ChamadoService{
 		chamadoRepo: chamadoRepo,
 	}
@@ -30,7 +30,7 @@ func (s ChamadoService) CriarChamados(chamado models.Chamado) error {
 	}
 
 	chamado.Status = models.StatusAberto
-	chamado.Data = time.Now()
+	chamado.DataAbertura = time.Now()
 
 	if chamado.ResponsavelID == 0 {
 		responsavel, err := s.responsavelRepo.BuscarResp()
@@ -65,7 +65,7 @@ func (s ChamadoService) AtualizarChamado(chamado models.Chamado) error {
 		return err
 	}
 
-	if chamado.Status == models.StatusCancelado && chamado.DescCancelado == "" {
+	if chamado.Status == models.StatusCancelado  {
 		return errors.New("Descrição do cancelamento é obrigatório ")
 	}
 
@@ -73,7 +73,7 @@ func (s ChamadoService) AtualizarChamado(chamado models.Chamado) error {
 		chamado.Status = models.StatusaAndamento
 	}
 
-	chamado.Data = existe.Data
+	chamado.DataAbertura = existe.DataAbertura
 
 	return s.chamadoRepo.Atualizar(chamado)
 }
