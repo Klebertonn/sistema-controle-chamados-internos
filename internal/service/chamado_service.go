@@ -51,13 +51,8 @@ func (s ChamadoService) ListarChamados() ([]models.Chamado, error) {
 
 }
 
-func (s ChamadoService) BuscarOrdemID(ordemID int) (*models.Chamado, error) {
-
-	return s.chamadoRepo.BuscarOrdemID(ordemID)
-
-}
-
 func (s ChamadoService) AtualizarChamado(chamado models.Chamado) error {
+
 	existe, err := s.chamadoRepo.BuscarOrdemID(chamado.OrdemID)
 
 	if err != nil {
