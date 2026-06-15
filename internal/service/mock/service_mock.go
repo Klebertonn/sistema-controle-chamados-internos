@@ -1,10 +1,15 @@
 package mock
 
-import "sistemas-controle-chamdos-internos/internal/models"
+import (
+	"errors"
+	"sistemas-controle-chamdos-internos/internal/models"
+)
 
-type MockChamadoRespository struct{}
+type MockChamadoRespository struct{
+	RetornarError bool
+}
 
-func (m *MockChamadoRespository) Criar(Chamado models.Chamado) error {
+func (m *MockChamadoRespository) Criar(chamado models.Chamado) error {
 	return nil
 }
 
@@ -23,6 +28,10 @@ func (m *MockChamadoRespository) Listar() ([]models.Chamado, error) {
 }
 
 func (m *MockChamadoRespository) BuscarOrdemID(ordemID int) (*models.Chamado, error) {
+
+	if m.RetornarError{
+		return nil, errors.New("Chamado não encontrado")
+	}
 
 	return &models.Chamado{
 		OrdemID: ordemID,
