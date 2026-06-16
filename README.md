@@ -13,6 +13,7 @@ Sistema web tem o objetivo de administrar os chamados internos de TI. Ele será 
 ## Tecnologias
 ### Backend
 -Gin
+
 -GO
 ## Banco de Dados
 -SQL Server
