@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Sistema de Chamados</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
@@ -99,57 +99,33 @@
 <script>
 async function carregarChamados() {
 
-    const chamados =
-        await listarChamados();
+    try {
 
-    const tabela =
-        document.getElementById("tabelaChamados");
+        const chamados = await listarChamados();
 
-    tabela.innerHTML = "";
+        console.log("DEBUG chamados:", chamados);
 
-    chamados.forEach(c => {
+        const tabela = document.getElementById("tabelaChamados");
 
-        tabela.innerHTML += `
-        <tr>
-            <td>${c.ordemId}</td>
-            <td>${c.titulo}</td>
-            <td>${c.status}</td>
-            <td>${c.prioridade}</td>
-            <td>${c.solicitante}</td>
-        </tr>
-        `;
-    });
-}
+        tabela.innerHTML = "";
 
-async function salvarChamado() {
+        chamados.forEach(c => {
 
-    const chamado = {
+            tabela.innerHTML += `
+                <tr>
+                    <td>${c.ordemId}</td>
+                    <td>${c.titulo}</td>
+                    <td>${c.status}</td>
+                    <td>${c.prioridade}</td>
+                    <td>${c.solicitante}</td>
+                </tr>
+            `;
+        });
 
-        titulo:
-            document.getElementById("titulo").value,
+    } catch (error) {
 
-        descricao:
-            document.getElementById("descricao").value,
-
-        status: "Aberto",
-
-        prioridade:
-            document.getElementById("prioridade").value,
-
-        solicitante:
-            document.getElementById("solicitante").value,
-
-        responsavelId: 0
-    };
-
-    const response =
-        await criarChamado(chamado);
-
-    if(response.ok){
-
-        alert("Chamado criado com sucesso");
-
-        carregarChamados();
+        console.error("Erro ao carregar chamados:", error);
+        alert("Erro ao carregar chamados");
     }
 }
 
